@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Repository;
+use App\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RepositoryController extends Controller
 {
     public function show()
     {
-        $repository = (object) [
-            'owner' => config('gh-traffic.repository_owner'),
-            'name' => config('gh-traffic.repository_name'),
-        ];
+        $repository = new Repository();
 
-        return view('index', ['repository' => $repository]);
+        $views = View::latest()->take(15)->get();
+
+        return view('index', ['repository' => $repository, 'views' => $views]);
     }
 }
