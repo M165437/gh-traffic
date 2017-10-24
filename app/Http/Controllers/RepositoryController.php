@@ -13,7 +13,7 @@ class RepositoryController extends Controller
     {
         $repository = new Repository();
 
-        $views = View::latest()->take(15)->get();
+        $views = View::current();
 
         return view('index', ['repository' => $repository, 'views' => $views]);
     }

@@ -16,7 +16,7 @@ class GitHubService
         );
 
         $views = collect($response['views'])->reverse()->map(function($view) {
-            return View::make([
+            return View::updateOrCreate([
                 'timestamp' => Carbon::parse($view['timestamp'])->toDateTimeString(),
                 'count' => $view['count'],
                 'uniques' => $view['uniques']

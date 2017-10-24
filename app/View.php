@@ -24,9 +24,8 @@ class View extends Model
     {
         $views = self::latest()->take(15)->get();
 
-        if (! $views || ! $views->first()->isToday()) {
-            $views = (new GitHubService())->fetchCurrentViews();
-            return $views->each->save();
+        if ($views->isEmpty() || ! $views->first()->isToday()) {
+            return (new GitHubService())->fetchCurrentViews();
         }
 
         return $views;

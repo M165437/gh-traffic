@@ -32,11 +32,8 @@ class ViewTest extends TestCase
     /** @test */
     function can_get_current_views_from_GitHub_if_not_available()
     {
-        $oldView = factory(View::class)->create(['timestamp' => $this->timestampDaysAgo(21)]);
-
         $views = View::current();
 
-        $this->assertFalse($views->pluck('timestamp')->contains($oldView->timestamp));
         $this->assertTrue(Carbon::parse($views->first()->timestamp)->isToday());
     }
 }
