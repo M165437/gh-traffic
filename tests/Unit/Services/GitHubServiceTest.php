@@ -2,6 +2,8 @@
 
 namespace Tests\Unit;
 
+use App\GitHub\FakeApiGateway;
+use App\GitHub\ApiGateway;
 use App\Services\GitHubService;
 use App\View;
 use Carbon\Carbon;
@@ -13,14 +15,20 @@ class GitHubServiceTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function can_fetch_and_persist_current_views_from_github()
+    function persists_current_views_from_github()
     {
-        $gitHubService = new GitHubService();
+        $fakeApiGateway = new FakeApiGateway();
+        $this->app->instance(ApiGateway::class, $fakeApiGateway);
 
-        $gitHubService->fetchCurrentViews();
-        $views = View::latest()->take(3)->get();
+        $gitHubService = $this->app->make('App\Services\GitHubService');
 
-        $this->assertNotNull($views);
-        $this->assertTrue(Carbon::parse($views->first()->timestamp)->isToday());
+        $viewsBefore = View::latest()->take(3)->get();
+        $this->assertTrue($viewsBefore->isEmpty());
+
+        $gitHubService->saveCurrentViews();
+
+        $viewsAfter = View::latest()->take(3)->get();
+        $this->assertFalse($viewsAfter->isEmpty());
+        $this->assertTrue(Carbon::parse($viewsAfter->first()->timestamp)->isToday());
     }
 }

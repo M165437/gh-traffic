@@ -33,7 +33,6 @@ class ViewTest extends TestCase
     function can_get_current_views_from_GitHub_if_not_available()
     {
         $views = View::current();
-
-        $this->assertTrue(Carbon::parse($views->first()->timestamp)->isToday());
+        $this->assertTrue(Carbon::parse($views->last()->timestamp)->isToday());
     }
 }

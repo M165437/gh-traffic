@@ -2,27 +2,29 @@
 
 namespace App\Services;
 
+use App\GitHub\ApiGateway;
 use App\View;
 use Carbon\Carbon;
 use GrahamCampbell\GitHub\Facades\GitHub;
 
 class GitHubService
 {
-    public function fetchCurrentViews()
+    private $apiGateway;
+
+    public function __construct(ApiGateway $apiGateway)
     {
-        $response = GitHub::repo()->traffic()->views(
-            config('gh-traffic.repository_owner'),
-            config('gh-traffic.repository_name')
-        );
+        $this->apiGateway = $apiGateway;
+    }
 
-        $views = collect($response['views'])->reverse()->map(function($view) {
-            return View::updateOrCreate([
-                'timestamp' => Carbon::parse($view['timestamp'])->toDateTimeString(),
-                'count' => $view['count'],
-                'uniques' => $view['uniques']
-            ]);
+    public function saveCurrentViews()
+    {
+        $currentViews = $this->apiGateway->fetchCurrentViews();
+
+        return collect($currentViews)->map(function($view) {
+            return View::updateOrCreate(
+                [ 'timestamp' => Carbon::parse($view['timestamp'])->toDateTimeString() ],
+                [ 'count' => $view['count'], 'uniques' => $view['uniques'] ]
+            );
         });
-
-        return $views;
     }
 }
