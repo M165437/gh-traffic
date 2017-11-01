@@ -1,9 +1,80 @@
-
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
-// Variables
-@import "variables";
-
-// Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.repo-info {
+    padding: 20px 0;
+    font-size: 18px;
+    line-height: 26px;
+    color: #586069;
+}
+
+.repo-owner,
+.repo-name {
+    color: #0366d6;
+    text-decoration: none;
+
+    &:hover {
+        color: #0366d6;
+    }
+}
+
+.panel-default {
+    box-shadow: none;
+
+    & > .panel-heading {
+        padding: 9px 10px 10px;
+        background-color: #f6f8fa;
+
+        h3 {
+            font-size: 14px;
+            line-height: 17px;
+            margin: 0;
+        }
+    }
+}
+
+.panel-footer {
+    padding: 0;
+    background-color: #fff;
+}
+
+.summary-stats {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
+    &::before {
+        display: table;
+        content: "";
+    }
+
+    ul {
+        -webkit-padding-start: 0;
+    }
+
+    li {
+        display: block;
+        padding-bottom: 10px;
+        float: left;
+        width: 50%;
+        color: #586069;
+        text-align: center;
+        border-left: 1px solid #e1e4e8;
+
+        &:first-child {
+            border-left: 0;
+            border-bottom-left-radius: 3px;
+        }
+
+        .num {
+            display: block;
+            padding-top: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #000;
+        }
+    }
+}
