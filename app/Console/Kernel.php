@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Services\GitHubService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\App;
 
 class Kernel extends ConsoleKernel
 {
@@ -25,9 +26,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            resolve(GitHubService::class)->saveCurrentViews();
-        })->daily();
+        if (App::environment('local')) {
+            $schedule->call(function () {
+                resolve(GitHubService::class)->saveCurrentViews();
+            })->hourly();
+        } else {
+            $schedule->call(function () {
+                resolve(GitHubService::class)->saveCurrentViews();
+            })->daily();
+        }
     }
 
     /**
