@@ -23,18 +23,35 @@ class ViewRepositoryTest extends TestCase
     }
 
     /** @test */
-    function view_receives_latest_15_repository_views()
+    function view_without_daterange_receives_latest_15_repository_views()
     {
-        $viewsAsc20 = collect(range(20, 0))->map(function($day) {
+        $views = collect(range(20, 0))->map(function($day) {
             return factory(\App\View::class)->create([
-                'timestamp' => Carbon::now()->subDays($day)->setTime(0, 0, 0)->toDateTimeString()
+                'timestamp' => Carbon::today()->subDays($day)->toDateTimeString()
             ]);
         });
-        $viewsDesc15 = $viewsAsc20->reverse()->take(15);
 
         $response = $this->get('/');
 
-        $this->assertCount(15, $response->data('views'));
-        $response->data('views')->assertEquals($viewsDesc15);
+        $response->data('views')->assertEquals($views->take(-15));
+    }
+
+    /** @test */
+    function view_with_daterange_receives_requested_repository_views()
+    {
+        $views = collect(range(20, 0))->map(function($day) {
+            return factory(\App\View::class)->create([
+                'timestamp' => Carbon::today()->subDays($day)->toDateTimeString()
+            ]);
+        });
+
+        $start = Carbon::today()->subDays(10);
+        $end = Carbon::today()->subDays(5);
+
+        $response = $this->get('/?start=' . $start->toDateString() . '&end=' . $end->toDateString());
+
+        $this->assertCount(6, $response->data('views'));
+        $this->assertEquals($start->toDateTimeString(), $response->data('views')->first()->timestamp);
+        $this->assertEquals($end->toDateTimeString(), $response->data('views')->last()->timestamp);
     }
 }

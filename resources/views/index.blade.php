@@ -20,6 +20,14 @@
                     <h3>Visitors</h3>
                 </div>
 
+                <ul class="list-group">
+                    <li class="list-group-item text-center">
+                        <span id="dateRange">
+                            {{ Carbon\Carbon::parse($views->first()->timestamp)->format('F j, Y') }} - {{ Carbon\Carbon::parse($views->last()->timestamp)->format('F j, Y') }} <b class="caret"></b>
+                        </span>
+                    </li>
+                </ul>
+
                 <div class="panel-body">
                     <canvas id="trafficChart" width="300" height="80"></canvas>
                 </div>
@@ -36,22 +44,11 @@
 
         <script>
             window.chartData = {
-                labels: [
-                    @foreach ($views->reverse() as $view)
-                    '{{ $view->timestamp }}'@if (!$loop->last),@endif
-                    @endforeach
-                ],
-                count: [
-                    @foreach ($views->reverse() as $view)
-                    {{ $view->count }}@if (!$loop->last),@endif
-                    @endforeach
-                ],
-                uniques: [
-                    @foreach ($views->reverse() as $view)
-                    {{ $view->uniques }}@if (!$loop->last),@endif
-                    @endforeach
-                ],
-                max: {{ $views->pluck('count')->max() }}
+                dateRange: {!! json_encode($dateRange) !!},
+                labels: {!! json_encode($views->pluck('timestamp')) !!},
+                count: {!! json_encode($views->pluck('count')) !!},
+                uniques: {!! json_encode($views->pluck('uniques')) !!},
+                ticksMax: {{ $views->pluck('count')->max() }}
             };
         </script>
 

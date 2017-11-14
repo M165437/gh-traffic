@@ -12,5 +12,10 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .extract(['jquery', 'moment', 'chart.js'])
+   .extract([
+        'jquery',
+        'moment',
+        'chart.js',
+        'daterangepicker'
+    ])
    .sass('resources/assets/sass/app.scss', 'public/css');

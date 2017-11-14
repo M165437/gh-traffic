@@ -1,4 +1,5 @@
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~daterangepicker/daterangepicker";
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -77,4 +78,8 @@ body {
             color: #000;
         }
     }
+}
+
+.dateRange {
+    cursor: pointer;
 }

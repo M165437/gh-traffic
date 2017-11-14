@@ -91,6 +91,7 @@ var chart = new Chart(ctx, {
                     beginAtZero: true,
                     stepSize: 10,
                     fontSize: 10,
+                    suggestedMax: chartData.ticksMax
                 },
                 gridLines: {
                     display: true,
@@ -111,7 +112,7 @@ var chart = new Chart(ctx, {
                     beginAtZero: true,
                     stepSize: 10,
                     fontSize: 10,
-                    suggestedMax: chartData.max
+                    suggestedMax: chartData.ticksMax
                 },
                 gridLines: {
                     display: true,
@@ -127,4 +128,28 @@ var chart = new Chart(ctx, {
             }]
         }
     }
+});
+
+$(function() {
+
+    function onRangeChange(start, end) {
+        var start = 'start=' + start.format('YYYY-MM-DD');
+        var end = 'end=' + end.format('YYYY-MM-DD');
+        window.location = window.location.href.replace( /[\?#].*|$/, '?' + start + '&' + end );
+    }
+
+    $('#dateRange').daterangepicker({
+        startDate: moment(chartData.dateRange.startDate),
+        endDate: moment(chartData.dateRange.endDate),
+        minDate: moment(chartData.dateRange.minDate),
+        maxDate: moment(chartData.dateRange.maxDate),
+        alwaysShowCalendars: true,
+        opens: 'center',
+        ranges: {
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, onRangeChange);
+
 });
