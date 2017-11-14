@@ -9,13 +9,13 @@ trait ApiGatewayContractTests
     abstract protected function getApiGateway();
 
     /** @test */
-    function fetching_views_is_successful()
+    function fetching_current_views_recives_14_or_15_latest_views()
     {
         $apiGateway = $this->getApiGateway();
 
         $currentViews = collect($apiGateway->fetchCurrentViews());
 
-        $this->assertCount(14, $currentViews);
+        $this->assertContains($currentViews->count(), [14, 15]);
         $this->assertTrue(Carbon::parse($currentViews->last()['timestamp'])->isToday());
     }
 }
