@@ -65,6 +65,10 @@ Run the tests with:
 vendor/bin/phpunit
 ```
 
+## Contributing
+
+Thank you for considering contributing to this package! Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
 ## License
 
 This app is licensed under the MIT License (MIT). Please see the [LICENCE](LICENSE.md) file for more information.
