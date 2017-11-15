@@ -67,7 +67,7 @@ vendor/bin/phpunit
 
 ## Contributing
 
-Thank you for considering contributing to this package! Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Thank you for considering contributing to this project! Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## License
 
