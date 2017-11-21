@@ -2,9 +2,9 @@
 
 [![GitHub release](https://img.shields.io/github/release/M165437/gh-traffic.svg)](https://github.com/M165437/gh-traffic/releases/latest) [![Unstable](https://img.shields.io/badge/unstable-master-orange.svg)](https://github.com/M165437/gh-traffic/tree/master) [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat&colorB=458979)](https://github.com/M165437/gh-traffic/blob/master/LICENSE.md) [![Twitter](https://img.shields.io/badge/twitter-@M165437-blue.svg?style=flat&colorB=00aced)](http://twitter.com/M165437)
 
-GitHub shows anyone with push access to a repository its traffic from the past 14 days. What if you need to monitor the traffic beyond those last two weeks?
+GitHub shows anyone with push access to a repository its traffic from the past two weeks. You want to monitor the traffic beyond that time? Automatically fetch and persist your traffic on a regular basis and plot the data onto a chart.
 
-This Laravel application automatically fetches and persists repository traffic (visitors for now) on an daily basis and plots the data onto a chart.
+Either install this free, self-hosted application to keep track of a single repository or head over to [gh-traffic.com](https://gh-traffic.com) and sign up for an extended service, hosted for you.
 
 ## Installation
 
