@@ -4,8 +4,6 @@
 
 GitHub shows anyone with push access to a repository its traffic from the past two weeks. You want to monitor the traffic beyond that time? Automatically fetch and persist your traffic on a regular basis and plot the data onto a chart.
 
-Either install this free, self-hosted application to keep track of a single repository or head over to [gh-traffic.com](https://gh-traffic.com) and sign up for an extended service, hosted for you.
-
 ## Installation
 
 This app is based on Laravel 5.5 and has the same [requirements](https://laravel.com/docs/5.5#server-requirements).
